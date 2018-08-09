@@ -34,7 +34,7 @@ services:
       - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=
       - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=
     depends_on:
-      - couchdb.peer0.customer1.skyfchain.io:
+      - couchdb.peer0.customer1.skyfchain.io
 
   couchdb.peer1.customer1.skyfchain.io:
     container_name: couchdb.peer1.customer1.skyfchain.io
@@ -61,7 +61,7 @@ services:
       - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=
       - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=
     depends_on:
-      - couchdb.peer1.customer1.skyfchain.io:
+      - couchdb.peer1.customer1.skyfchain.io
 
   couchdb.peer0.operator1.skyfchain.io:
     container_name: couchdb.peer0.operator1.skyfchain.io
@@ -129,7 +129,7 @@ services:
     # Comment/Uncomment the port mapping if you want to hide/expose the CouchDB service,
     # for example map it to utilize Fauxton User Interface in dev environments.
     ports:
-      - "7984:5984"
+      - "9984:5984"
     networks:
       - skyf
 
@@ -156,7 +156,7 @@ services:
     # Comment/Uncomment the port mapping if you want to hide/expose the CouchDB service,
     # for example map it to utilize Fauxton User Interface in dev environments.
     ports:
-      - "8984:5984"
+      - "10984:5984"
     networks:
       - skyf
 
@@ -183,7 +183,7 @@ services:
     # Comment/Uncomment the port mapping if you want to hide/expose the CouchDB service,
     # for example map it to utilize Fauxton User Interface in dev environments.
     ports:
-      - "7984:5984"
+      - "11984:5984"
     networks:
       - skyf
 
@@ -210,7 +210,7 @@ services:
     # Comment/Uncomment the port mapping if you want to hide/expose the CouchDB service,
     # for example map it to utilize Fauxton User Interface in dev environments.
     ports:
-      - "8984:5984"
+      - "12984:5984"
     networks:
       - skyf
 
