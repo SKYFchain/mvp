@@ -23,10 +23,7 @@ LANGUAGE=`echo "$LANGUAGE" | tr [:upper:] [:lower:]`
 COUNTER=1
 MAX_RETRY=5
 
-CC_SRC_PATH="github.com/chaincode/chaincode_example02/go/"
-if [ "$LANGUAGE" = "node" ]; then
-	CC_SRC_PATH="/opt/gopath/src/github.com/chaincode/chaincode_example02/node/"
-fi
+CC_SRC_PATH="gitlab.qdlt.io/skyf/skyfchain/chaincode/"
 
 echo "Channel name : "$CHANNEL_NAME
 
@@ -84,6 +81,8 @@ echo "Updating anchor peers for monitor1..."
 updateAnchorPeers 0 "Monitor1"
 
 
+## Go get package
+go get "github.com/google/uuid"
 ## Install chaincode on peer0 of each org
 echo "Installing chaincode on peer0.customer1..."
 installChaincode 0 "Customer1"
@@ -100,20 +99,23 @@ echo "Instantiating chaincode on peer0.operator1..."
 instantiateChaincode 0 "Operator1"
 
 # Query chaincode on peer0.customer1
-echo "Querying chaincode on peer0.customer1..."
-chaincodeQuery 0 "Customer1" 100
+echo "Querying drones on peer0.customer1..."
+queryDrones 0 "Customer1"
+
+echo "Querying drone on peer0.customer1..."
+queryDrone 0 "Customer1" 1
 
 # Invoke chaincode on peer0.customer1 and peer0.operator1
-echo "Sending invoke transaction on peer0.customer1 peer0.operator1..."
-chaincodeInvoke 0 "Customer1" 0 "Operator1" 0 "Admin1" 0 "Monitor1"
+#echo "Sending invoke transaction on peer0.customer1 peer0.operator1..."
+#chaincodeInvoke 0 "Customer1" 0 "Operator1" 0 "Admin1" 0 "Monitor1"
 
 # Install chaincode on peer1.operator1
 echo "Installing chaincode on peer1.operator1..."
 installChaincode 1 "Operator1"
 
 # Query on chaincode on peer1.operator1, check if the result is 90
-echo "Querying chaincode on peer1.operator1..."
-chaincodeQuery 1 "Operator1" 90
+#echo "Querying chaincode on peer1.operator1..."
+#chaincodeQuery 1 "Operator1" 90
 
 echo
 echo "========= All GOOD, Test execution completed =========== "
