@@ -4,25 +4,16 @@ import (
 	"fmt"
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	pb "github.com/hyperledger/fabric/protos/peer"
+	"gitlab.qdlt.io/skyf/skyfchain/chaincode/model"
 	"strconv"
 )
-
-type route struct {
-	ObjectType string  `json:"docType"`
-	Id         int64   `json:"id"`
-	Name       string  `json:"name"`
-	Active     bool    `json:"active"`
-	Distance   int     `json:"distance"`
-	Altitude   []int   `json:"altitude"`
-	Points     []int64 `json:"points"`
-}
 
 func routeKey(stub shim.ChaincodeStubInterface, id int64) (string, error) {
 	return stub.CreateCompositeKey("route", []string{string(id)})
 }
 
-func initRoutes() []route {
-	route1 := route{
+func initRoutes() []model.Route {
+	route1 := model.Route{
 		ObjectType: "route",
 		Id:         1,
 		Name:       "Singapore - Pinang",
@@ -30,7 +21,7 @@ func initRoutes() []route {
 		Distance:   87000,
 		Points:     []int64{11, 12, 13, 14, 15, 16, 17, 18, 19, 20},
 		Altitude:   []int{100, 200}}
-	route2 := route{
+	route2 := model.Route{
 		ObjectType: "route",
 		Id:         2,
 		Name:       "Hanoi — Dien Bien Phu",
@@ -38,7 +29,7 @@ func initRoutes() []route {
 		Distance:   286000,
 		Points:     []int64{21, 22},
 		Altitude:   []int{200, 250}}
-	route3 := route{
+	route3 := model.Route{
 		ObjectType: "route",
 		Id:         3,
 		Name:       "Pohang — Fukuoka",
@@ -46,7 +37,7 @@ func initRoutes() []route {
 		Distance:   216000,
 		Points:     []int64{31, 32},
 		Altitude:   []int{200, 300}}
-	route4 := route{
+	route4 := model.Route{
 		ObjectType: "route",
 		Id:         4,
 		Name:       "Oita — Kochi",
@@ -54,7 +45,7 @@ func initRoutes() []route {
 		Distance:   196000,
 		Points:     []int64{41, 42},
 		Altitude:   []int{150, 200}}
-	route5 := route{
+	route5 := model.Route{
 		ObjectType: "route",
 		Id:         5,
 		Name: "Nizhnevartovsk — Pokachi	",
@@ -63,7 +54,7 @@ func initRoutes() []route {
 		Points:   []int64{51, 52},
 		Altitude: []int{100, 300}}
 
-	route6 := route{
+	route6 := model.Route{
 		ObjectType: "route",
 		Id:         6,
 		Name:       "Gwangju — Jeju",
@@ -72,7 +63,7 @@ func initRoutes() []route {
 		Points:     []int64{61, 62},
 		Altitude:   []int{100, 350}}
 
-	route7 := route{
+	route7 := model.Route{
 		ObjectType: "route",
 		Id:         7,
 		Name:       "Amsterdam — Borkum",
@@ -81,7 +72,7 @@ func initRoutes() []route {
 		Points:     []int64{71, 72},
 		Altitude:   []int{200, 220}}
 
-	return []route{route1, route2, route3, route4, route5, route6, route7}
+	return []model.Route{route1, route2, route3, route4, route5, route6, route7}
 }
 func (t *SkyfchainChaincode) routes(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 	if len(args) > 0 {

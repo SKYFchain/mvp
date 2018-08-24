@@ -5,45 +5,20 @@ import (
 	"github.com/google/uuid"
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	pb "github.com/hyperledger/fabric/protos/peer"
+	"gitlab.qdlt.io/skyf/skyfchain/chaincode/model"
 	"math/rand"
 	"strconv"
 	"time"
 )
 
-type drone struct {
-	ObjectType     string    `json:"docType"`
-	Id             int64     `json:"id"`
-	Name           string    `json:"name"`
-	Model          string    `json:"model"`
-	Capacity       int       `json:"capacity"`
-	Image          string    `json:"image"`
-	Description    string    `json:"description"`
-	Operator       string    `json:"operator"`
-	Docs           []doc     `json:"docs"`
-	Status         string    `json:"status"`
-	NextInspection time.Time `json:"nextInspection"`
-	UID            uuid.UUID `json:"uid"`
-	Version        version   `json:"version"`
-	Point          int64     `json:"point"`
-}
-
-type version struct {
-	Hardware string `json:"hardware"`
-	Software string `json:"software"`
-}
-
-type doc struct {
-	Name string `json:"name"`
-}
-
 func droneKey(stub shim.ChaincodeStubInterface, id int64) (string, error) {
 	return stub.CreateCompositeKey("drone", []string{string(id)})
 }
 
-func initDrones() []drone {
+func initDrones() []model.Drone {
 	rand.Seed(42)
-	docs := []doc{doc{"General overview"}, doc{"Technical certificate"}, doc{"User's manual"}}
-	drone1 := drone{
+	docs := []model.Doc{model.Doc{"General overview"}, model.Doc{"Technical certificate"}, model.Doc{"User's manual"}}
+	drone1 := model.Drone{
 		ObjectType:     "drone",
 		Id:             1,
 		Name:           "Drone 1",
@@ -55,9 +30,9 @@ func initDrones() []drone {
 		Status:         "mission",
 		NextInspection: time.Now().Add(time.Hour * time.Duration(rand.Intn(240))),
 		UID:            uuid.New(),
-		Version:        version{"H10", "2.1.1"},
+		Version:        model.Version{"H10", "2.1.1"},
 		Point:          16}
-	drone2 := drone{
+	drone2 := model.Drone{
 		ObjectType:     "drone",
 		Id:             2,
 		Name:           "Drone 2",
@@ -69,24 +44,24 @@ func initDrones() []drone {
 		Status:         "mission",
 		NextInspection: time.Now().Add(time.Hour * time.Duration(rand.Intn(240))),
 		UID:            uuid.New(),
-		Version:        version{"L16", "2.1.1"},
+		Version:        model.Version{"L16", "2.1.1"},
 		Point:          21}
-	drone3 := drone{
+	drone3 := model.Drone{
 		ObjectType:     "drone",
 		Id:             3,
 		Name:           "Drone 3",
 		Model:          "Heavy HA UAV",
 		Capacity:       250,
 		Image:          "media/drone3.png",
-		Description:    "High-altitude drone.",
+		Description:    "High-altitude model.",
 		Operator:       "SKYF",
 		Docs:           docs,
 		Status:         "mission",
 		NextInspection: time.Now().Add(time.Hour * time.Duration(rand.Intn(240))),
 		UID:            uuid.New(),
-		Version:        version{"HA5", "2.0.5"},
+		Version:        model.Version{"HA5", "2.0.5"},
 		Point:          31}
-	drone4 := drone{
+	drone4 := model.Drone{
 		ObjectType:     "drone",
 		Id:             4,
 		Name:           "Drone 4",
@@ -98,9 +73,9 @@ func initDrones() []drone {
 		Status:         "mission",
 		NextInspection: time.Now().Add(time.Hour * time.Duration(rand.Intn(240))),
 		UID:            uuid.New(),
-		Version:        version{"L16", "2.0.5"},
+		Version:        model.Version{"L16", "2.0.5"},
 		Point:          41}
-	drone5 := drone{
+	drone5 := model.Drone{
 		ObjectType:     "drone",
 		Id:             5,
 		Name:           "Drone 5",
@@ -113,9 +88,35 @@ func initDrones() []drone {
 		Status:         "mission",
 		NextInspection: time.Now().Add(time.Hour * time.Duration(rand.Intn(240))),
 		UID:            uuid.New(),
-		Version:        version{"HR2", "1.2.19"},
+		Version:        model.Version{"HR2", "1.2.19"},
 		Point:          51}
-	return []drone{drone1, drone2, drone3, drone4, drone5}
+	drone6 := model.Drone{
+		ObjectType: "drone",
+		Id:         6,
+		Name:       "Drone 6",
+		ETA:        time.Now().Add(time.Hour * time.Duration(rand.Intn(240))),
+		UID:        uuid.New(),
+		Notes:      "Waiting for new transmission",
+		Status:     "Repair"}
+
+	drone7 := model.Drone{
+		ObjectType: "drone",
+		Id:         7,
+		Name:       "Drone 7",
+		ETA:        time.Now().Add(time.Hour * time.Duration(rand.Intn(240))),
+		UID:        uuid.New(),
+		Notes:      "Check chassis",
+		Status:     "Inspection"}
+
+	drone8 := model.Drone{
+		ObjectType:     "drone",
+		Id:             8,
+		Name:           "Drone 8",
+		NextInspection: time.Now().Add(time.Hour * time.Duration(rand.Intn(240))),
+		UID:            uuid.New(),
+		Notes:          "Change oil filter",
+		Status:         "Maintenance"}
+	return []model.Drone{drone1, drone2, drone3, drone4, drone5, drone6, drone7, drone8}
 }
 
 func (t *SkyfchainChaincode) drones(stub shim.ChaincodeStubInterface, args []string) pb.Response {

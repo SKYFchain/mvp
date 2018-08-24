@@ -4,44 +4,19 @@ import (
 	"fmt"
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	pb "github.com/hyperledger/fabric/protos/peer"
+	"gitlab.qdlt.io/skyf/skyfchain/chaincode/model"
 	"strconv"
 	"time"
 )
-
-type mission struct {
-	ObjectType  string    `json:"docType"`
-	Id          int64     `json:"id"`
-	Name        string    `json:"name"`
-	Route       int64     `json:"route"`
-	Point       int64     `json:"point"`
-	Drone       int64     `json:"drone"`
-	Cargo       string    `json:"cargo"`
-	Customer    string    `json:"customer"`
-	Certs       []cert    `json:"certs"`
-	Legal       []legal   `json:"legal"`
-	Price       int64     `json:"price"`
-	Status      string    `json:"status"`
-	ETA         time.Time `json:"eta"`
-	ETD         time.Time `json:"etd"`
-	Description string    `json:"description"`
-}
-
-type cert struct {
-	Name string `json:"name"`
-}
-
-type legal struct {
-	Name string `json:"name"`
-}
 
 func missionKey(stub shim.ChaincodeStubInterface, id int64) (string, error) {
 	return stub.CreateCompositeKey("mission", []string{string(id)})
 }
 
-func initMissions() []mission {
-	certs := []cert{cert{Name: "Operator's license"}, cert{Name: "Certificate of conformity"}}
-	legal := []legal{legal{Name: "Flight list"}, legal{Name: "Cargo declaration"}}
-	mission1 := mission{
+func initMissions() []model.Mission {
+	certs := []model.Cert{model.Cert{Name: "Operator's license"}, model.Cert{Name: "Certificate of conformity"}}
+	legal := []model.Legal{model.Legal{Name: "Flight list"}, model.Legal{Name: "Cargo declaration"}}
+	mission1 := model.Mission{
 		ObjectType: "mission",
 		Id:         1,
 		Name:       "Spare parts and instruments",
@@ -56,7 +31,7 @@ func initMissions() []mission {
 		ETD:        time.Date(2018, 06, 21, 12, 0, 0, 0, time.Local),
 		Certs:      certs,
 		Legal:      legal}
-	mission2 := mission{
+	mission2 := model.Mission{
 		ObjectType: "mission",
 		Id:         2,
 		Name:       "Mail",
@@ -71,7 +46,7 @@ func initMissions() []mission {
 		ETD:        time.Date(2018, 06, 22, 12, 0, 0, 0, time.Local),
 		Certs:      certs,
 		Legal:      legal}
-	mission3 := mission{
+	mission3 := model.Mission{
 		ObjectType: "mission",
 		Id:         3,
 		Name:       "Water",
@@ -86,7 +61,7 @@ func initMissions() []mission {
 		ETD:        time.Date(2018, 06, 22, 12, 0, 0, 0, time.Local),
 		Certs:      certs,
 		Legal:      legal}
-	mission4 := mission{
+	mission4 := model.Mission{
 		ObjectType: "mission",
 		Id:         4,
 		Name:       "Spare parts",
@@ -101,7 +76,7 @@ func initMissions() []mission {
 		ETD:        time.Date(2018, 06, 22, 12, 0, 0, 0, time.Local),
 		Certs:      certs,
 		Legal:      legal}
-	mission5 := mission{
+	mission5 := model.Mission{
 		ObjectType: "mission",
 		Id:         5,
 		Name:       "Measuring instruments",
@@ -116,7 +91,7 @@ func initMissions() []mission {
 		ETD:        time.Date(2018, 06, 22, 12, 0, 0, 0, time.Local),
 		Certs:      certs,
 		Legal:      legal}
-	return []mission{mission1, mission2, mission3, mission4, mission5}
+	return []model.Mission{mission1, mission2, mission3, mission4, mission5}
 }
 
 func (t *SkyfchainChaincode) missions(stub shim.ChaincodeStubInterface, args []string) pb.Response {
