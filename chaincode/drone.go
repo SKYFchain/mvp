@@ -18,6 +18,8 @@ func droneKey(stub shim.ChaincodeStubInterface, id int64) (string, error) {
 func initDrones() []model.Drone {
 	rand.Seed(42)
 	docs := []model.Doc{model.Doc{"General overview"}, model.Doc{"Technical certificate"}, model.Doc{"User's manual"}}
+	t1 := time.Now().Add(time.Hour * time.Duration(rand.Intn(240)))
+	var p1 int64 = 16
 	drone1 := model.Drone{
 		ObjectType:     "drone",
 		Id:             1,
@@ -28,10 +30,12 @@ func initDrones() []model.Drone {
 		Operator:       "SKYF",
 		Docs:           docs,
 		Status:         "mission",
-		NextInspection: time.Now().Add(time.Hour * time.Duration(rand.Intn(240))),
+		NextInspection: &t1,
 		UID:            uuid.New(),
-		Version:        model.Version{"H10", "2.1.1"},
-		Point:          16}
+		Version:        &model.Version{"H10", "2.1.1"},
+		Point:          &p1}
+	t2 := time.Now().Add(time.Hour * time.Duration(rand.Intn(240)))
+	var p2 int64 = 21
 	drone2 := model.Drone{
 		ObjectType:     "drone",
 		Id:             2,
@@ -42,10 +46,12 @@ func initDrones() []model.Drone {
 		Operator:       "SKYF",
 		Docs:           docs,
 		Status:         "mission",
-		NextInspection: time.Now().Add(time.Hour * time.Duration(rand.Intn(240))),
+		NextInspection: &t2,
 		UID:            uuid.New(),
-		Version:        model.Version{"L16", "2.1.1"},
-		Point:          21}
+		Version:        &model.Version{"L16", "2.1.1"},
+		Point:          &p2}
+	t3 := time.Now().Add(time.Hour * time.Duration(rand.Intn(240)))
+	var p3 int64 = 31
 	drone3 := model.Drone{
 		ObjectType:     "drone",
 		Id:             3,
@@ -57,10 +63,12 @@ func initDrones() []model.Drone {
 		Operator:       "SKYF",
 		Docs:           docs,
 		Status:         "mission",
-		NextInspection: time.Now().Add(time.Hour * time.Duration(rand.Intn(240))),
+		NextInspection: &t3,
 		UID:            uuid.New(),
-		Version:        model.Version{"HA5", "2.0.5"},
-		Point:          31}
+		Version:        &model.Version{"HA5", "2.0.5"},
+		Point:          &p3}
+	t4 := time.Now().Add(time.Hour * time.Duration(rand.Intn(240)))
+	var p4 int64 = 41
 	drone4 := model.Drone{
 		ObjectType:     "drone",
 		Id:             4,
@@ -71,10 +79,12 @@ func initDrones() []model.Drone {
 		Operator:       "SKYF",
 		Docs:           docs,
 		Status:         "mission",
-		NextInspection: time.Now().Add(time.Hour * time.Duration(rand.Intn(240))),
+		NextInspection: &t4,
 		UID:            uuid.New(),
-		Version:        model.Version{"L16", "2.0.5"},
-		Point:          41}
+		Version:        &model.Version{"L16", "2.0.5"},
+		Point:          &p4}
+	t5 := time.Now().Add(time.Hour * time.Duration(rand.Intn(240)))
+	var p5 int64 = 51
 	drone5 := model.Drone{
 		ObjectType:     "drone",
 		Id:             5,
@@ -86,36 +96,37 @@ func initDrones() []model.Drone {
 		Operator:       "SKYF",
 		Docs:           docs,
 		Status:         "mission",
-		NextInspection: time.Now().Add(time.Hour * time.Duration(rand.Intn(240))),
+		NextInspection: &t5,
 		UID:            uuid.New(),
-		Version:        model.Version{"HR2", "1.2.19"},
-		Point:          51}
+		Version:        &model.Version{"HR2", "1.2.19"},
+		Point:          &p5}
+	t6 := time.Now().Add(time.Hour * time.Duration(rand.Intn(240)))
 	drone6 := model.Drone{
 		ObjectType: "drone",
 		Id:         6,
 		Name:       "Drone 6",
-		ETA:        time.Now().Add(time.Hour * time.Duration(rand.Intn(240))),
+		ETA:        &t6,
 		UID:        uuid.New(),
 		Notes:      "Waiting for new transmission",
 		Status:     "Repair"}
-
+	t7 := time.Now().Add(time.Hour * time.Duration(rand.Intn(240)))
 	drone7 := model.Drone{
 		ObjectType: "drone",
 		Id:         7,
 		Name:       "Drone 7",
-		ETA:        time.Now().Add(time.Hour * time.Duration(rand.Intn(240))),
+		ETA:        &t7,
 		UID:        uuid.New(),
 		Notes:      "Check chassis",
 		Status:     "Inspection"}
-
+	t8 := time.Now().Add(time.Hour * time.Duration(rand.Intn(240)))
 	drone8 := model.Drone{
-		ObjectType:     "drone",
-		Id:             8,
-		Name:           "Drone 8",
-		NextInspection: time.Now().Add(time.Hour * time.Duration(rand.Intn(240))),
-		UID:            uuid.New(),
-		Notes:          "Change oil filter",
-		Status:         "Maintenance"}
+		ObjectType: "drone",
+		Id:         8,
+		Name:       "Drone 8",
+		ETA:        &t8,
+		UID:        uuid.New(),
+		Notes:      "Change oil filter",
+		Status:     "Maintenance"}
 	return []model.Drone{drone1, drone2, drone3, drone4, drone5, drone6, drone7, drone8}
 }
 

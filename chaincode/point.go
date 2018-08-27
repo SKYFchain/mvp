@@ -42,7 +42,7 @@ func (t *SkyfchainChaincode) points(stub shim.ChaincodeStubInterface, args []str
 		return shim.Error("Incorrect number of arguments. Expecting 0")
 	}
 
-	queryString := "{\"selector\":{\"docType\":\"points\"}}"
+	queryString := "{\"selector\":{\"docType\":\"point\"}}"
 
 	queryResults, err := getQueryResultForQueryString(stub, queryString)
 	if err != nil {

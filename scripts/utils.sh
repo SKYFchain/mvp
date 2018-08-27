@@ -144,12 +144,12 @@ instantiateChaincode() {
   # the "-o" option
   if [ -z "$CORE_PEER_TLS_ENABLED" -o "$CORE_PEER_TLS_ENABLED" = "false" ]; then
     set -x
-    peer chaincode instantiate -o orderer.skyfchain.io:7050 -C $CHANNEL_NAME -n skyfchain -l ${LANGUAGE} -v ${VERSION} -c '{"Args":["init","a","100","b","200"]}' -P "AND ('Customer1MSP.peer','Operator1MSP.peer','Admin1MSP.peer','Monitor1MSP.peer')" >&log.txt
+    peer chaincode instantiate -o orderer.skyfchain.io:7050 -C $CHANNEL_NAME -n skyfchain -l ${LANGUAGE} -v ${VERSION} -c '{"Args":["init"]}' -P "AND ('Customer1MSP.peer','Operator1MSP.peer','Admin1MSP.peer','Monitor1MSP.peer')" >&log.txt
     res=$?
     set +x
   else
     set -x
-    peer chaincode instantiate -o orderer.skyfchain.io:7050 --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n skyfchain -l ${LANGUAGE} -v 1.0 -c '{"Args":["init","a","100","b","200"]}' -P "AND ('Customer1MSP.peer','Operator1MSP.peer','Admin1MSP.peer','Monitor1MSP.peer')" >&log.txt
+    peer chaincode instantiate -o orderer.skyfchain.io:7050 --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n skyfchain -l ${LANGUAGE} -v 1.0 -c '{"Args":["init"]}' -P "AND ('Customer1MSP.peer','Operator1MSP.peer','Admin1MSP.peer','Monitor1MSP.peer')" >&log.txt
     res=$?
     set +x
   fi
@@ -165,7 +165,7 @@ upgradeChaincode() {
   setGlobals $PEER $ORG
 
   set -x
-  peer chaincode upgrade -o orderer.skyfchain.io:7050 --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n skyfchain -v 2.0 -c '{"Args":["init","a","90","b","210"]}' -P "AND ('Customer1MSP.peer','Operator1MSP.peer','Admin1MSP.peer','Monitor1MSP.peer','Org3MSP.peer')"
+  peer chaincode upgrade -o orderer.skyfchain.io:7050 --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n skyfchain -v 2.0 -c '{"Args":["init"]}' -P "AND ('Customer1MSP.peer','Operator1MSP.peer','Admin1MSP.peer','Monitor1MSP.peer','Org3MSP.peer')"
   res=$?
   set +x
   cat log.txt

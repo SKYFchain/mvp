@@ -46,11 +46,47 @@ func (t *SkyfchainChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response 
 		if err != nil {
 			return shim.Error(err.Error())
 		}
-		routeBytes, err := json.Marshal(routes)
+		routeBytes, err := json.Marshal(route)
 		if err != nil {
 			return shim.Error(err.Error())
 		}
 		err = stub.PutState(key, routeBytes)
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+	}
+
+	points := initPoints()
+
+	for _, point := range points {
+		key, err := pointKey(stub, point.Id)
+
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+		pointBytes, err := json.Marshal(point)
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+		err = stub.PutState(key, pointBytes)
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+	}
+
+	missions := initMissions()
+
+	for _, mission := range missions {
+		key, err := missionKey(stub, mission.Id)
+
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+		missionBytes, err := json.Marshal(mission)
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+		err = stub.PutState(key, missionBytes)
 		if err != nil {
 			return shim.Error(err.Error())
 		}
@@ -82,10 +118,10 @@ func (t *SkyfchainChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Respons
 		return t.mission(stub, args)
 	}
 	if function == "points" {
-		return t.missions(stub, args)
+		return t.points(stub, args)
 	}
 	if function == "point" {
-		return t.mission(stub, args)
+		return t.point(stub, args)
 	}
 
 	fmt.Println("invoke did not find func: " + function) //error
