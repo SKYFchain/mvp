@@ -142,11 +142,11 @@ services:
       - ./gravis/keys/:/etc/gravis/keys
       - ./gravis/config/:/etc/gravis/config
       - ./crypto-config/:/etc/gravis/crypto-config
-    command: /opt/gravis/gravis -config /etc/gravis/config/dev.config.yaml
+    command: /bin/bash -c "sleep 120 && /opt/gravis/gravis -config /etc/gravis/config/dev.config.yaml"
     networks:
       - skyf
     ports:
-      - 8080:8080
+      - 127.0.0.1:8080:8080
     depends_on:
       - mongo.skyfchain.io
       - peer0.operator1.skyfchain.io
@@ -159,13 +159,14 @@ services:
     networks:
       - skyf
     ports:
-      - 27017:27017
+      - 127.0.0.1:27017:27017
 
   nginx.skyfchain.io:
-    image: nginx:latest
+    image: nginx:stable
     container_name: nginx.skyfchain.io
     volumes:
       - ./nginx:/etc/nginx
+      - ./tilde:/var/www/skyf.qdlt.io
     networks:
       - skyf
     ports:
