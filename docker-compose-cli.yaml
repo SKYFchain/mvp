@@ -134,3 +134,45 @@ services:
         -  peer1.monitor1.skyfchain.io
     networks:
       - skyf
+
+  gravis.skyfchain.io:
+    image: skyf/gravis:0.0.1
+    container_name: gravis.skyfchain.io
+    volumes:
+      - ./gravis/keys/:/etc/gravis/keys
+      - ./gravis/config/:/etc/gravis/config
+      - ./crypto-config/:/etc/gravis/crypto-config
+    command: /opt/gravis/gravis -config /etc/gravis/config/dev.config.yaml
+    networks:
+      - skyf
+    ports:
+      - 8080:8080
+    depends_on:
+      - mongo.skyfchain.io
+      - peer0.operator1.skyfchain.io
+
+  mongo.skyfchain.io:
+    image: mongo:latest
+    container_name: mongo.skyfchain.io
+    volumes:
+      - ./mongo:/data/db/
+    networks:
+      - skyf
+    ports:
+      - 27017:27017
+
+  nginx.skyfchain.io:
+    image: nginx:latest
+    container_name: nginx.skyfchain.io
+    volumes:
+      - ./nginx:/etc/nginx
+    networks:
+      - skyf
+    ports:
+      - 443:443
+    depends_on:
+      - gravis.skyfchain.io
+    command: nginx -c /etc/nginx/nginx.conf
+
+
+

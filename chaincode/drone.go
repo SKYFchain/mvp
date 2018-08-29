@@ -108,7 +108,7 @@ func initDrones() []model.Drone {
 		ETA:        &t6,
 		UID:        uuid.New(),
 		Notes:      "Waiting for new transmission",
-		Status:     "Repair"}
+		Status:     "repair"}
 	t7 := time.Now().Add(time.Hour * time.Duration(rand.Intn(240)))
 	drone7 := model.Drone{
 		ObjectType: "drone",
@@ -117,7 +117,7 @@ func initDrones() []model.Drone {
 		ETA:        &t7,
 		UID:        uuid.New(),
 		Notes:      "Check chassis",
-		Status:     "Inspection"}
+		Status:     "inspection"}
 	t8 := time.Now().Add(time.Hour * time.Duration(rand.Intn(240)))
 	drone8 := model.Drone{
 		ObjectType: "drone",
@@ -126,7 +126,7 @@ func initDrones() []model.Drone {
 		ETA:        &t8,
 		UID:        uuid.New(),
 		Notes:      "Change oil filter",
-		Status:     "Maintenance"}
+		Status:     "maintenance"}
 	return []model.Drone{drone1, drone2, drone3, drone4, drone5, drone6, drone7, drone8}
 }
 
