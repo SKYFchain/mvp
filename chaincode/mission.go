@@ -30,7 +30,11 @@ func initMissions() []model.Mission {
 		ETA:        time.Date(2018, 06, 21, 17, 0, 0, 0, time.Local),
 		ETD:        time.Date(2018, 06, 21, 12, 0, 0, 0, time.Local),
 		Certs:      certs,
-		Legal:      legal}
+		Legal:      legal,
+		Txns: []model.Txn{model.Txn{Hash: "0x86b39522e78aaa8f798643b66f5f722407af3b999262ddebd12f14452aee83b1"},
+			model.Txn{Hash: "0x00a4144936f2c84b88b852b7fd00e759234478d6ef604d4580dbaff9a5003da9"},
+			model.Txn{Hash: "0xd81713da92f8255938f428dc5a02b32ccc794e34147fba61896e44f8955bb50c"},
+			model.Txn{Hash: "0xe5edd78cb2a04d40fda6924b1564894bcbfcc7f4276e1b679da1e1407dc35362"}}}
 	mission2 := model.Mission{
 		ObjectType: "mission",
 		Id:         2,
@@ -45,7 +49,8 @@ func initMissions() []model.Mission {
 		ETA:        time.Date(2018, 06, 22, 17, 0, 0, 0, time.Local),
 		ETD:        time.Date(2018, 06, 22, 12, 0, 0, 0, time.Local),
 		Certs:      certs,
-		Legal:      legal}
+		Legal:      legal,
+		Txns:       []model.Txn{model.Txn{Hash: "0x86b39522e78aaa8f798643b66f5f722407af3b999262ddebd12f14452aee83b1"}}}
 	mission3 := model.Mission{
 		ObjectType: "mission",
 		Id:         3,
@@ -60,7 +65,9 @@ func initMissions() []model.Mission {
 		ETA:        time.Date(2018, 06, 22, 17, 0, 0, 0, time.Local),
 		ETD:        time.Date(2018, 06, 22, 12, 0, 0, 0, time.Local),
 		Certs:      certs,
-		Legal:      legal}
+		Legal:      legal,
+		Txns: []model.Txn{model.Txn{Hash: "0x00a4144936f2c84b88b852b7fd00e759234478d6ef604d4580dbaff9a5003da9"},
+			model.Txn{Hash: "0x86b39522e78aaa8f798643b66f5f722407af3b999262ddebd12f14452aee83b1"}}}
 	mission4 := model.Mission{
 		ObjectType: "mission",
 		Id:         4,
@@ -90,7 +97,12 @@ func initMissions() []model.Mission {
 		ETA:        time.Date(2018, 06, 22, 17, 0, 0, 0, time.Local),
 		ETD:        time.Date(2018, 06, 22, 12, 0, 0, 0, time.Local),
 		Certs:      certs,
-		Legal:      legal}
+		Legal:      legal,
+		Txns: []model.Txn{model.Txn{Hash: "0x86b39522e78aaa8f798643b66f5f722407af3b999262ddebd12f14452aee83b1"},
+			model.Txn{Hash: "0xd81713da92f8255938f428dc5a02b32ccc794e34147fba61896e44f8955bb50c"},
+			model.Txn{Hash: "0x00a4144936f2c84b88b852b7fd00e759234478d6ef604d4580dbaff9a5003da9"},
+			model.Txn{Hash: "0xe5edd78cb2a04d40fda6924b1564894bcbfcc7f4276e1b679da1e1407dc35362"},
+			model.Txn{Hash: "0xca3b86b5a7c4d3beb1da3850c947c2391bfd54fbec75e42388b267664927f45f"}}}
 	return []model.Mission{mission1, mission2, mission3, mission4, mission5}
 }
 

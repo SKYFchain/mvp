@@ -20,8 +20,12 @@ type Mission struct {
 	ETA         time.Time `json:"eta,omitempty"`
 	ETD         time.Time `json:"etd,omitempty"`
 	Description string    `json:"description,omitempty"`
+	Txns        []Txn     `json:"txns,omitempty"`
 }
 
+type Txn struct {
+	Hash string `json:"hash"`
+}
 type Cert struct {
 	Name string `json:"name,omitempty"`
 }
