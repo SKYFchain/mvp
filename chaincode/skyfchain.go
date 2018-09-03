@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	pb "github.com/hyperledger/fabric/protos/peer"
 )
@@ -23,7 +24,7 @@ func (t *SkyfchainChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response 
 	drones := initDrones()
 
 	for _, drone := range drones {
-		key, err := droneKey(stub, drone.Id)
+		key, err := droneKey(stub, drone.ID)
 
 		if err != nil {
 			return shim.Error(err.Error())
@@ -41,12 +42,13 @@ func (t *SkyfchainChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response 
 	routes := initRoutes()
 
 	for _, route := range routes {
-		key, err := routeKey(stub, route.Id)
+		key, err := routeKey(stub, route.ID)
 
 		if err != nil {
 			return shim.Error(err.Error())
 		}
 		routeBytes, err := json.Marshal(route)
+
 		if err != nil {
 			return shim.Error(err.Error())
 		}
@@ -59,7 +61,7 @@ func (t *SkyfchainChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response 
 	points := initPoints()
 
 	for _, point := range points {
-		key, err := pointKey(stub, point.Id)
+		key, err := pointKey(stub, point.ID)
 
 		if err != nil {
 			return shim.Error(err.Error())
@@ -77,7 +79,7 @@ func (t *SkyfchainChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response 
 	missions := initMissions()
 
 	for _, mission := range missions {
-		key, err := missionKey(stub, mission.Id)
+		key, err := missionKey(stub, mission.ID)
 
 		if err != nil {
 			return shim.Error(err.Error())
@@ -104,6 +106,9 @@ func (t *SkyfchainChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Respons
 	}
 	if function == "drone" {
 		return t.drone(stub, args)
+	}
+	if function == "saveDrone" {
+		return t.saveDrone(stub, args)
 	}
 	if function == "routes" {
 		return t.routes(stub, args)

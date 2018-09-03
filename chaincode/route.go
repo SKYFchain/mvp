@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
+	"strconv"
+
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	pb "github.com/hyperledger/fabric/protos/peer"
 	"gitlab.qdlt.io/skyf/skyfchain/chaincode/model"
-	"strconv"
 )
 
 func routeKey(stub shim.ChaincodeStubInterface, id int64) (string, error) {
@@ -15,7 +16,7 @@ func routeKey(stub shim.ChaincodeStubInterface, id int64) (string, error) {
 func initRoutes() []model.Route {
 	route1 := model.Route{
 		ObjectType: "route",
-		Id:         1,
+		ID:         1,
 		Name:       "Singapore - Pinang",
 		Active:     true,
 		Distance:   87000,
@@ -23,7 +24,7 @@ func initRoutes() []model.Route {
 		Altitude:   []int{100, 200}}
 	route2 := model.Route{
 		ObjectType: "route",
-		Id:         2,
+		ID:         2,
 		Name:       "Hanoi — Dien Bien Phu",
 		Active:     true,
 		Distance:   286000,
@@ -31,7 +32,7 @@ func initRoutes() []model.Route {
 		Altitude:   []int{200, 250}}
 	route3 := model.Route{
 		ObjectType: "route",
-		Id:         3,
+		ID:         3,
 		Name:       "Pohang — Fukuoka",
 		Active:     true,
 		Distance:   216000,
@@ -39,7 +40,7 @@ func initRoutes() []model.Route {
 		Altitude:   []int{200, 300}}
 	route4 := model.Route{
 		ObjectType: "route",
-		Id:         4,
+		ID:         4,
 		Name:       "Oita — Kochi",
 		Active:     true,
 		Distance:   196000,
@@ -47,7 +48,7 @@ func initRoutes() []model.Route {
 		Altitude:   []int{150, 200}}
 	route5 := model.Route{
 		ObjectType: "route",
-		Id:         5,
+		ID:         5,
 		Name: "Nizhnevartovsk — Pokachi	",
 		Active:   true,
 		Distance: 98000,
@@ -56,7 +57,7 @@ func initRoutes() []model.Route {
 
 	route6 := model.Route{
 		ObjectType: "route",
-		Id:         6,
+		ID:         6,
 		Name:       "Gwangju — Jeju",
 		Active:     true,
 		Distance:   183000,
@@ -65,7 +66,7 @@ func initRoutes() []model.Route {
 
 	route7 := model.Route{
 		ObjectType: "route",
-		Id:         7,
+		ID:         7,
 		Name:       "Amsterdam — Borkum",
 		Active:     false,
 		Distance:   137000,
@@ -94,12 +95,12 @@ func (t *SkyfchainChaincode) route(stub shim.ChaincodeStubInterface, args []stri
 		return shim.Error("Incorrect number of arguments. Expecting 1")
 	}
 
-	routeId, err := strconv.ParseInt(args[0], 0, 64)
+	routeID, err := strconv.ParseInt(args[0], 0, 64)
 	if err != nil {
 		return shim.Error(err.Error())
 	}
 
-	key, err := routeKey(stub, routeId)
+	key, err := routeKey(stub, routeID)
 	if err != nil {
 		return shim.Error(err.Error())
 	}
@@ -109,7 +110,7 @@ func (t *SkyfchainChaincode) route(stub shim.ChaincodeStubInterface, args []stri
 	if err != nil {
 		return shim.Error(err.Error())
 	} else if routeBytes == nil {
-		return shim.Error(fmt.Sprintf("{\"Error\":\"Route does not exist: %v\"}", routeId))
+		return shim.Error(fmt.Sprintf("{\"Error\":\"Route does not exist: %v\"}", routeID))
 	}
 
 	return shim.Success(routeBytes)

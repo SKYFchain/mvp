@@ -1,0 +1,9 @@
+{
+    "index": {
+        "fields": [
+            "id"
+        ]
+    },
+    "name": "indexDroneId",
+    "type": "json"
+}

@@ -1,13 +1,14 @@
 package model
 
 import (
-	"github.com/google/uuid"
 	"time"
+
+	"github.com/google/uuid"
 )
 
 type Drone struct {
 	ObjectType     string     `json:"docType"`
-	Id             int64      `json:"id"`
+	ID             int64      `json:"id"`
 	Name           string     `json:"name,omitempty"`
 	Model          string     `json:"model,omitempty"`
 	Capacity       int        `json:"capacity,omitempty"`

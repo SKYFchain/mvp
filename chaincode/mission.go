@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
+	"strconv"
+	"time"
+
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	pb "github.com/hyperledger/fabric/protos/peer"
 	"gitlab.qdlt.io/skyf/skyfchain/chaincode/model"
-	"strconv"
-	"time"
 )
 
 func missionKey(stub shim.ChaincodeStubInterface, id int64) (string, error) {
@@ -18,7 +19,7 @@ func initMissions() []model.Mission {
 	legal := []model.Legal{model.Legal{Name: "Flight list"}, model.Legal{Name: "Cargo declaration"}}
 	mission1 := model.Mission{
 		ObjectType: "mission",
-		Id:         1,
+		ID:         1,
 		Name:       "Spare parts and instruments",
 		Point:      14,
 		Cargo:      "1",
@@ -37,7 +38,7 @@ func initMissions() []model.Mission {
 			model.Txn{Hash: "0xe5edd78cb2a04d40fda6924b1564894bcbfcc7f4276e1b679da1e1407dc35362"}}}
 	mission2 := model.Mission{
 		ObjectType: "mission",
-		Id:         2,
+		ID:         2,
 		Name:       "Mail",
 		Point:      21,
 		Cargo:      "1",
@@ -53,7 +54,7 @@ func initMissions() []model.Mission {
 		Txns:       []model.Txn{model.Txn{Hash: "0x86b39522e78aaa8f798643b66f5f722407af3b999262ddebd12f14452aee83b1"}}}
 	mission3 := model.Mission{
 		ObjectType: "mission",
-		Id:         3,
+		ID:         3,
 		Name:       "Water",
 		Point:      31,
 		Cargo:      "1",
@@ -70,7 +71,7 @@ func initMissions() []model.Mission {
 			model.Txn{Hash: "0x86b39522e78aaa8f798643b66f5f722407af3b999262ddebd12f14452aee83b1"}}}
 	mission4 := model.Mission{
 		ObjectType: "mission",
-		Id:         4,
+		ID:         4,
 		Name:       "Spare parts",
 		Point:      41,
 		Cargo:      "1",
@@ -85,7 +86,7 @@ func initMissions() []model.Mission {
 		Legal:      legal}
 	mission5 := model.Mission{
 		ObjectType: "mission",
-		Id:         5,
+		ID:         5,
 		Name:       "Measuring instruments",
 		Point:      51,
 		Cargo:      "1",
@@ -126,12 +127,12 @@ func (t *SkyfchainChaincode) mission(stub shim.ChaincodeStubInterface, args []st
 		return shim.Error("Incorrect number of arguments. Expecting 1")
 	}
 
-	missionId, err := strconv.ParseInt(args[0], 0, 64)
+	missionID, err := strconv.ParseInt(args[0], 0, 64)
 	if err != nil {
 		return shim.Error(err.Error())
 	}
 
-	key, err := missionKey(stub, missionId)
+	key, err := missionKey(stub, missionID)
 	if err != nil {
 		return shim.Error(err.Error())
 	}
@@ -141,7 +142,7 @@ func (t *SkyfchainChaincode) mission(stub shim.ChaincodeStubInterface, args []st
 	if err != nil {
 		return shim.Error(err.Error())
 	} else if missionBytes == nil {
-		return shim.Error(fmt.Sprintf("{\"Error\":\"Mission does not exist: %v\"}", missionId))
+		return shim.Error(fmt.Sprintf("{\"Error\":\"Mission does not exist: %v\"}", missionID))
 	}
 
 	return shim.Success(missionBytes)

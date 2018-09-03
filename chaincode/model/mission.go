@@ -6,7 +6,7 @@ import (
 
 type Mission struct {
 	ObjectType  string    `json:"docType"`
-	Id          int64     `json:"id"`
+	ID          int64     `json:"id"`
 	Name        string    `json:"name,omitempty"`
 	Route       int64     `json:"route,omitempty"`
 	Point       int64     `json:"point,omitempty"`
