@@ -192,6 +192,7 @@ func (t *SkyfchainChaincode) saveDrone(stub shim.ChaincodeStubInterface, args []
 
 	drone.ID = lastDroneID + 1
 	drone.ObjectType = "drone"
+	drone.Status = "idle"
 	droneBytes, err = json.Marshal(drone)
 	if err != nil {
 		return shim.Error(err.Error())
