@@ -5,9 +5,9 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/SKYFchain/mvp/chaincode/model"
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	pb "github.com/hyperledger/fabric/protos/peer"
-	"gitlab.qdlt.io/skyf/skyfchain/chaincode/model"
 )
 
 func missionKey(stub shim.ChaincodeStubInterface, id int64) (string, error) {

@@ -23,7 +23,7 @@ LANGUAGE=`echo "$LANGUAGE" | tr [:upper:] [:lower:]`
 COUNTER=1
 MAX_RETRY=5
 
-CC_SRC_PATH="gitlab.qdlt.io/skyf/skyfchain/chaincode/"
+CC_SRC_PATH="github.com/SKYFchain/mvp/chaincode/"
 
 echo "Channel name : "$CHANNEL_NAME
 
