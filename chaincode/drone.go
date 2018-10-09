@@ -25,9 +25,9 @@ func initDrones() []model.Drone {
 	drone1 := model.Drone{
 		ObjectType:     "drone",
 		ID:             1,
-		Name:           "Drone 1",
-		Model:          "Heavy UAV",
-		Capacity:       400,
+		Name:           "SKYF-P2.01",
+		Model:          "SKYF P2",
+		Capacity:       "N/A",
 		Image:          "media/drone1.png",
 		Operator:       "SKYF",
 		Docs:           docs,
