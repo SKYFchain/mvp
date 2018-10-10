@@ -27,7 +27,7 @@ func initDrones() []model.Drone {
 		ID:             1,
 		Name:           "SKYF-P2.01",
 		Model:          "SKYF P2",
-		Capacity:       "N/A",
+		Capacity:       0,
 		Image:          "media/drone1.png",
 		Operator:       "SKYF",
 		Docs:           docs,
